@@ -19,7 +19,7 @@ html {
 
 body {
 	padding-top: 60px;
-	background-color: 880000;
+	background-color: #880000;
 }
 
 section {
@@ -32,6 +32,10 @@ textarea {
 
 .center {
 	text-align: center;
+}
+
+.hero-unit {
+	background-color: #880000;
 }
 
 .center h1 {
@@ -49,6 +53,11 @@ h1 {
 	letter-spacing: -2px;
 	margin-bottom: 30px;
 	text-align: center;
+	color: #FFFFFF;
+}
+
+.hero-unit h1{
+	color: #FFFFFF;
 }
 
 h2 {
