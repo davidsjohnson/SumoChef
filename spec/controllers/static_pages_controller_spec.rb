@@ -8,12 +8,4 @@ describe StaticPagesController do
       response.should be_success
     end
   end
-
-  describe "GET 'sign_in'" do
-    it "returns http success" do
-      get 'sign_in'
-      response.should be_success
-    end
-  end
-
 end
