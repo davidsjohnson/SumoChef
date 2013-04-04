@@ -44,4 +44,22 @@ describe "Authentication Pages" do
 			end
 		end
 	end
+
+	describe "authorization" do
+		let(:user) { FactoryGirl.create(:user) }
+
+		describe "in recipes controller" do
+
+			describe "submitting to the create action" do
+				before { post recipes_path }
+				specify { response.should redirect_to(signin_path) }
+			end
+
+			describe "submitting to the destroy action" do
+				before { delete recipe_path(FactoryGirl.create(:recipe)) }
+				specify { response.should redirect_to(signin_path) }
+			end
+
+		end
+	end
 end

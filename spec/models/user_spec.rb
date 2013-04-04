@@ -30,6 +30,7 @@ describe User do
   it { should respond_to(:remember_token) }
   it { should respond_to(:password_confirmation) }
   it { should respond_to(:authenticate) }
+  it { should respond_to(:recipes) }
 
   it { should be_valid }
 
@@ -155,6 +156,29 @@ describe User do
   describe "remember token" do
     before { @user.save }
     its(:remember_token) { should_not be_blank }
+  end
+
+  describe "Recipe Associations" do
+    before { @user.save }
+    let!(:older_recipe) do
+      FactoryGirl.create(:recipe, user: @user, created_at: 1.day.ago)
+    end
+    let!(:newer_recipe) do
+      FactoryGirl.create(:recipe, user: @user, created_at: 1.hour.ago)
+    end
+
+    it "should have recipes in the correct order" do
+      @user.recipes.should == [newer_recipe, older_recipe]
+    end
+
+    it "should destroy associated recipes" do
+      recipes = @user.recipes.dup
+      @user.destroy
+      recipes.should_not be_empty
+      recipes.each do |recipe|
+        Recipe.find_by_id(recipe.id).should be_nil
+      end
+    end
   end
 
 end

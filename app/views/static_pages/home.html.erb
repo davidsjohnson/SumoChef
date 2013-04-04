@@ -1,14 +1,24 @@
-<div class="center hero-unit">
-	<h1>Welcome to SumoChef!!</h1>
-
-	<h2>
-		This is SumoChef Recipe Finder and Shopping List
-	</h2>
+<% if signed_in? %>
 	<div>
-		<%= link_to image_tag("SumoChefRed.png", alt: "Sumo!!!!"), '#' %>
-	</div>
+      <h3>Recipes (<%= @recipes.count %>)</h3>
+      <ol class="recipes">
+        <%= render @recipes %>
+      </ol>
+      <%= will_paginate @recipes, class: 'pagination pagination-small' %>
+  </div>
+<% else %>
+	<div class="center hero-unit">
+		<h1>Welcome to SumoChef!!</h1>
 
-	<div>
-		<%= link_to "Sign up now!", signup_path, class: "btn btn-large btn-primary" %>
+		<h2>
+			This is SumoChef Recipe Finder and Shopping List
+		</h2>
+		<div>
+			<%= link_to image_tag("SumoChefRed.png", alt: "Sumo!!!!"), '#' %>
+		</div>
+
+		<div>
+			<%= link_to "Sign up now!", signup_path, class: "btn btn-large btn-primary" %>
+		</div>
 	</div>
-</div>
+<% end %>

@@ -12,10 +12,19 @@ describe "User pages" do
 
 	describe "profile page" do
 		let(:user) { FactoryGirl.create(:user) }
+    let!(:r1) { FactoryGirl.create(:recipe, user: user, recipe_name: "Recipe Name 1") }
+    let!(:r2) { FactoryGirl.create(:recipe, user: user, recipe_name: "Recipe Name 2") }
+
 		before { visit user_path(user) }
 
 		it { should have_selector('h1',	  text: user.user_name) }
 		it { should have_selector('title', text: user.user_name) }
+
+    describe "Recipes" do
+      it { should have_content(r1.recipe_name) }
+      it { should have_content(r2.recipe_name) }
+      it { should have_content(user.recipes.count) }
+    end
 	end
 
   describe "signup" do
@@ -41,7 +50,7 @@ describe "User pages" do
     describe "with valid information" do
 
       before do
-        fill_in "Name first",             with: "Example"
+        fill_in "Name first",            with: "Example"
         fill_in "Name middle",           with: "User"
         fill_in "Name last",             with: "One"
         fill_in "Email",                 with: "user@example.com"

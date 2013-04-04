@@ -1,11 +1,21 @@
 <% provide(:title, @user.user_name) %> 
 <div class="row">
-	<aside class="span4">
+<!-- 	<aside class="span4">
 		<section>
 			<h1> 
 				<%= gravatar_for @user %>
 				<%= @user.user_name %> 
 			</h1>
 		</section>
-	</aside>
+	</aside> -->
+
+	<div class="span8">
+    <% if @user.recipes.any? %>
+      <h3>Recipes (<%= @user.recipes.count %>)</h3>
+      <ol class="recipes">
+        <%= render @recipes %>
+      </ol>
+      <%= will_paginate @recipes %>
+    <% end %>
+  </div>
 </div>

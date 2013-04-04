@@ -1,6 +1,7 @@
 class User < ActiveRecord::Base
   attr_accessible :email, :name_first, :name_last, :name_middle, :user_name, :password, :password_confirmation
   has_secure_password
+  has_many :recipes, dependent: :destroy
 
   before_save { email.downcase! }
   before_save { user_name.downcase! }

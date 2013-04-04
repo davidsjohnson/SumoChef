@@ -1,0 +1,7 @@
+<li class="well">
+  <h4 class="recipe_name"><%= recipe.recipe_name %></h4>
+  <p class="description"><%= recipe.description %></p>
+  <span class="timestamp">
+    Added <%= time_ago_in_words(recipe.created_at) %> ago.
+  </span>
+</li>

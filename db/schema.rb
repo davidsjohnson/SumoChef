@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130328003838) do
+ActiveRecord::Schema.define(:version => 20130404145533) do
 
   create_table "contains_product", :id => false, :force => true do |t|
     t.integer "recipe_id",                                                      :null => false
@@ -20,6 +20,20 @@ ActiveRecord::Schema.define(:version => 20130328003838) do
     t.decimal "quantity",                         :precision => 4, :scale => 2, :null => false
     t.string  "preparation_method", :limit => 20
   end
+
+  create_table "contains_products", :force => true do |t|
+    t.integer  "recipe_id"
+    t.integer  "product_id"
+    t.string   "unit_of_measure"
+    t.decimal  "quantity"
+    t.string   "preperation_method"
+    t.datetime "created_at",         :null => false
+    t.datetime "updated_at",         :null => false
+  end
+
+  add_index "contains_products", ["product_id"], :name => "index_contains_products_on_product_id"
+  add_index "contains_products", ["recipe_id", "product_id"], :name => "index_contains_products_on_recipe_id_and_product_id", :unique => true
+  add_index "contains_products", ["recipe_id"], :name => "index_contains_products_on_recipe_id"
 
   create_table "favorite", :id => false, :force => true do |t|
     t.integer "person_id", :null => false
@@ -69,6 +83,17 @@ ActiveRecord::Schema.define(:version => 20130328003838) do
     t.string  "description",     :limit => 30
   end
 
+  create_table "products", :force => true do |t|
+    t.integer  "product_id"
+    t.string   "product_name"
+    t.integer  "manufacturer_id"
+    t.string   "description"
+    t.datetime "created_at",      :null => false
+    t.datetime "updated_at",      :null => false
+  end
+
+  add_index "products", ["product_id"], :name => "index_products_on_product_id"
+
   create_table "recipe", :primary_key => "recipe_id", :force => true do |t|
     t.string  "recipe_name",     :limit => 40,   :null => false
     t.string  "description",     :limit => 100,  :null => false
@@ -79,6 +104,24 @@ ActiveRecord::Schema.define(:version => 20130328003838) do
     t.string  "recipe_category", :limit => 15
     t.integer "owner_id",                        :null => false
   end
+
+  create_table "recipes", :force => true do |t|
+    t.integer  "recipe_id"
+    t.string   "recipe_name"
+    t.string   "description"
+    t.string   "directions"
+    t.string   "total_prep_time"
+    t.string   "total_cook_time"
+    t.integer  "servings"
+    t.string   "recipe_category"
+    t.integer  "user_id"
+    t.datetime "created_at",      :null => false
+    t.datetime "updated_at",      :null => false
+  end
+
+  add_index "recipes", ["created_at"], :name => "index_recipes_on_created_at"
+  add_index "recipes", ["recipe_name"], :name => "index_recipes_on_recipe_name"
+  add_index "recipes", ["user_id"], :name => "index_recipes_on_user_id"
 
   create_table "shopping_list", :primary_key => "shopping_list_id", :force => true do |t|
     t.string "description", :limit => 50
