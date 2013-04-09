@@ -11,22 +11,7 @@
 	<%= render 'layouts/header' %>
 	<div class="container">
 	<div class="row">
-    	<aside class="span4">
-    		<% if signed_in? %>
-	      	<section>
-	        		<%= render 'shared/user_info' %>
-	      	</section>
-	      	<section>
-	        		<%= render 'shared/recipe_form' %>
-	      	</section>
-      	<% else %>
-      		<section>
-      			login
-      		</section>
-      	<% end %>
-    	</aside>
-
-    	<div class="span8"> 
+    	<div> 
 			<% flash.each do |key, value| %>
 	        <%= content_tag(:div, value, class: "alert alert-#{key}") %>
 	      <% end %>

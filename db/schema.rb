@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130404145533) do
+ActiveRecord::Schema.define(:version => 20130409014322) do
 
   create_table "contains_product", :id => false, :force => true do |t|
     t.integer "recipe_id",                                                      :null => false
@@ -64,6 +64,14 @@ ActiveRecord::Schema.define(:version => 20130404145533) do
   create_table "manufacturer", :primary_key => "manufacturer_id", :force => true do |t|
     t.string "manufacturer_name", :limit => 30
   end
+
+  create_table "manufacturers", :force => true do |t|
+    t.string   "manufacturer_name"
+    t.datetime "created_at",        :null => false
+    t.datetime "updated_at",        :null => false
+  end
+
+  add_index "manufacturers", ["manufacturer_name"], :name => "index_manufacturers_on_manufacturer_name"
 
   create_table "person", :primary_key => "user_id", :force => true do |t|
     t.string   "user_name",       :limit => 30, :null => false
@@ -128,10 +136,43 @@ ActiveRecord::Schema.define(:version => 20130404145533) do
     t.string "state",       :limit => 10
   end
 
+  create_table "shopping_lists", :force => true do |t|
+    t.string   "description"
+    t.string   "state"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+    t.integer  "user_id"
+  end
+
+  add_index "shopping_lists", ["id", "user_id"], :name => "index_shopping_lists_on_id_and_user_id"
+  add_index "shopping_lists", ["user_id"], :name => "index_shopping_lists_on_user_id"
+
+  create_table "stores", :force => true do |t|
+    t.string   "store_name"
+    t.string   "address_street"
+    t.string   "address_city"
+    t.string   "address_state"
+    t.string   "address_zip"
+    t.string   "phone"
+    t.datetime "created_at",     :null => false
+    t.datetime "updated_at",     :null => false
+  end
+
+  add_index "stores", ["store_name"], :name => "index_stores_on_store_name"
+
   create_table "to_buy", :id => false, :force => true do |t|
     t.integer "shopping_list_id", :null => false
     t.integer "product_id",       :null => false
   end
+
+  create_table "to_buys", :force => true do |t|
+    t.integer  "shopping_list_id"
+    t.datetime "created_at",       :null => false
+    t.datetime "updated_at",       :null => false
+    t.integer  "product_id"
+  end
+
+  add_index "to_buys", ["shopping_list_id"], :name => "index_to_buys_on_shopping_list_id"
 
   create_table "users", :force => true do |t|
     t.string   "user_name"

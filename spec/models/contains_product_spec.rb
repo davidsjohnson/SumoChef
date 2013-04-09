@@ -3,9 +3,11 @@ require 'spec_helper'
 describe ContainsProduct do
   let(:recipe) { FactoryGirl.create(:recipe) }
   let(:product) { FactoryGirl.create(:product) }
-  let(:contains_product) { recipe.contains_products.build(product_id: product.id) }
+  before do
+    @contains_product = recipe.contains!(product, 3, "Cups") 
+  end
 
-  subject { contains_product }
+  subject { @contains_product }
 
   it { should be_valid }
 
@@ -25,12 +27,12 @@ describe ContainsProduct do
   end
 
   describe "when recipe id is not present" do
-    before { contains_product.recipe_id = nil }
+    before { @contains_product.recipe_id = nil }
     it { should_not be_valid }
   end
 
   describe "when follower id is not present" do
-    before { contains_product.product_id = nil }
+    before { @contains_product.product_id = nil }
     it { should_not be_valid }
   end
 end

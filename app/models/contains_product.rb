@@ -6,4 +6,6 @@ class ContainsProduct < ActiveRecord::Base
 
   validates :product_id, presence: true
   validates :recipe_id, presence: true
+  validates :quantity, presence: true
+  validates :unit_of_measure, presence: true
 end

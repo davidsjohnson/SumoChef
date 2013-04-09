@@ -9,6 +9,12 @@ FactoryGirl.define do
 		password_confirmation "foobar"
 	end
 
+	factory :product do
+		product_name "Cheese"
+		description "This is Cheese!"
+		manufacturer_id 1
+	end
+
 	factory :recipe do
 		description "Food Recipe with ingredients 1 2 and 3"
 		directions "1.  Do a bunch of stuff\n2.  Do some more stuff\n3.  Finally And Done!"
@@ -20,12 +26,5 @@ FactoryGirl.define do
 		total_prep_time "1 hour"
 		user
 	end
-
-	factory :product do
-		product_name "Cheese"
-		description "This is Cheese!"
-		manufacturer_id 1
-	end
-
 
 end
