@@ -31,6 +31,7 @@ describe User do
   it { should respond_to(:password_confirmation) }
   it { should respond_to(:authenticate) }
   it { should respond_to(:recipes) }
+  it { should respond_to(:shopping_lists) }
 
   it { should be_valid }
 
@@ -156,6 +157,27 @@ describe User do
   describe "remember token" do
     before { @user.save }
     its(:remember_token) { should_not be_blank }
+  end
+
+
+  describe "checking for active shopping lists" do
+    before { @user.save }
+
+    describe "there shouldn't be any active" do
+      describe "without any shopping lists" do
+        its(:any_active_shopping_lists?) { should == false }
+      end
+
+      describe "with inactive shopping list" do
+        before { @user.shopping_lists.create(description: "This is a List", state: "inactive") }
+        its(:any_active_shopping_lists?) { should == false }
+      end
+    end
+
+    describe "there should be one active" do
+      before { @user.shopping_lists.create(description: "This is a List", state: "active") }
+      its(:any_active_shopping_lists?) { should == true }
+    end
   end
 
   describe "Recipe Associations" do

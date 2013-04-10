@@ -17,6 +17,10 @@ class User < ActiveRecord::Base
   validates :password, length: { minimum: 6 }
   validates :password_confirmation, presence: true
 
+  def any_active_shopping_lists?
+    !self.shopping_lists.find_by_state("active").nil?
+  end
+
   private
 
     def create_remember_token

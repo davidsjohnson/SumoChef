@@ -1,13 +1,22 @@
 <% provide(:title, @user.user_name) %> 
 <div class="row">
-<!-- 	<aside class="span4">
-		<section>
+	<aside class="span4">
+		<section class="user_header">
 			<h1> 
 				<%= gravatar_for @user %>
 				<%= @user.user_name %> 
 			</h1>
 		</section>
-	</aside> -->
+		<section class="shopping_list">
+			<h3>Active Shopping Lists</h3>
+			<% if @user.any_active_shopping_lists? %>
+				<%= render @shopping_lists %>
+				<%= will_paginate @shopping_lists, param_name: 'list_page' %>
+			<% else %>
+				<p class="alert"> You have no active shopping lists.  Please select a recipe or create a new shopping list to get started </p>
+			<% end %>
+		</section>
+	</aside>
 
 	<div class="span8">
     <% if @user.recipes.any? %>
@@ -15,7 +24,7 @@
       <ol class="recipes">
         <%= render @recipes %>
       </ol>
-      <%= will_paginate @recipes %>
+      <%= will_paginate @recipes, param_name: 'recipe_page' %>
     <% end %>
   </div>
 </div>

@@ -1,0 +1,13 @@
+<div class="well">
+	<h4><%= link_to "Shopping List", shopping_list %></h4>
+  	<p class="description"><%= shopping_list.description %></p>
+  	<p class="state"><strong>Status: </strong><%=shopping_list.state.titlecase %></p>
+  	<ol class="products">
+  		<% shopping_list.to_buys.each do |to_buy| %>
+  			<li class="product"> <%= to_buy.product_name %> </li>
+  		<% end %>
+ 	</ol>
+  	<span class="timestamp">
+  		Shopping list added <%= time_ago_in_words(shopping_list.created_at) %> ago.
+  	</span>
+</div>

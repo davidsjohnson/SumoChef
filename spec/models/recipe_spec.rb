@@ -84,4 +84,5 @@ describe Recipe do
 		it { should be_contains(product) }
 		its(:products) { should include(product) }
 	end
+
 end

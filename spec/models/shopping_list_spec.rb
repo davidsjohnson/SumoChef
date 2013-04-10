@@ -3,7 +3,7 @@ require 'spec_helper'
 describe ShoppingList do
 	let(:user) { FactoryGirl.create(:user) }
 	before do
-		@shopping_list = user.shopping_lists.build(description: "This is a List", state: "active")
+		@shopping_list = user.shopping_lists.build(description: "This is a List", state: "inactive")
 	end
 
   subject { @shopping_list }
@@ -50,5 +50,6 @@ describe ShoppingList do
       its(:products) { should_not include(product) } 
     end 
   end
+
 
 end

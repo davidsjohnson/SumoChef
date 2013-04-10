@@ -4,6 +4,8 @@ class ShoppingList < ActiveRecord::Base
   has_many :to_buys, foreign_key: "shopping_list_id", dependent: :destroy
   has_many :products, through: :to_buys, source: :product
 
+  before_save { state.downcase! }
+
 
   validates :description, presence: true
   validates :state, presence: true
