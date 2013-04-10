@@ -13,13 +13,6 @@
 
 ActiveRecord::Schema.define(:version => 20130409014322) do
 
-  create_table "contains_product", :id => false, :force => true do |t|
-    t.integer "recipe_id",                                                      :null => false
-    t.integer "product_id",                                                     :null => false
-    t.string  "unit_of_measure",    :limit => 10,                               :null => false
-    t.decimal "quantity",                         :precision => 4, :scale => 2, :null => false
-    t.string  "preparation_method", :limit => 20
-  end
 
   create_table "contains_products", :force => true do |t|
     t.integer  "recipe_id"
@@ -35,36 +28,6 @@ ActiveRecord::Schema.define(:version => 20130409014322) do
   add_index "contains_products", ["recipe_id", "product_id"], :name => "index_contains_products_on_recipe_id_and_product_id", :unique => true
   add_index "contains_products", ["recipe_id"], :name => "index_contains_products_on_recipe_id"
 
-  create_table "favorite", :id => false, :force => true do |t|
-    t.integer "person_id", :null => false
-    t.integer "recipe_id", :null => false
-  end
-
-  create_table "friend", :id => false, :force => true do |t|
-    t.integer "person_id", :null => false
-    t.integer "friend_id", :null => false
-  end
-
-  create_table "gstore", :primary_key => "store_id", :force => true do |t|
-    t.string "store_name",     :limit => 30
-    t.string "address_street", :limit => 30
-    t.string "address_city",   :limit => 30
-    t.string "address_state",  :limit => 2
-    t.string "address_zip",    :limit => 10
-    t.string "phone",          :limit => 14
-  end
-
-  create_table "located", :id => false, :force => true do |t|
-    t.integer "product_id",                                 :null => false
-    t.integer "store_id",                                   :null => false
-    t.integer "aisle_number"
-    t.decimal "price",        :precision => 5, :scale => 2
-  end
-
-  create_table "manufacturer", :primary_key => "manufacturer_id", :force => true do |t|
-    t.string "manufacturer_name", :limit => 30
-  end
-
   create_table "manufacturers", :force => true do |t|
     t.string   "manufacturer_name"
     t.datetime "created_at",        :null => false
@@ -73,26 +36,8 @@ ActiveRecord::Schema.define(:version => 20130409014322) do
 
   add_index "manufacturers", ["manufacturer_name"], :name => "index_manufacturers_on_manufacturer_name"
 
-  create_table "person", :primary_key => "user_id", :force => true do |t|
-    t.string   "user_name",       :limit => 30, :null => false
-    t.string   "name_first",      :limit => 20
-    t.string   "name_middle",     :limit => 20
-    t.string   "name_last",       :limit => 20
-    t.string   "email_address",   :limit => 30
-    t.string   "password_digest"
-    t.datetime "member_since"
-  end
-
-  create_table "product", :primary_key => "product_id", :force => true do |t|
-    t.string  "product_name",    :limit => 30,                               :null => false
-    t.integer "manufacturer_id"
-    t.string  "unit_of_measure", :limit => 10
-    t.decimal "quantity",                      :precision => 4, :scale => 2
-    t.string  "description",     :limit => 30
-  end
 
   create_table "products", :force => true do |t|
-    t.integer  "product_id"
     t.string   "product_name"
     t.integer  "manufacturer_id"
     t.string   "description"
@@ -100,21 +45,7 @@ ActiveRecord::Schema.define(:version => 20130409014322) do
     t.datetime "updated_at",      :null => false
   end
 
-  add_index "products", ["product_id"], :name => "index_products_on_product_id"
-
-  create_table "recipe", :primary_key => "recipe_id", :force => true do |t|
-    t.string  "recipe_name",     :limit => 40,   :null => false
-    t.string  "description",     :limit => 100,  :null => false
-    t.string  "directions",      :limit => 2000, :null => false
-    t.string  "total_prep_time", :limit => 10,   :null => false
-    t.string  "total_cook_time", :limit => 10,   :null => false
-    t.integer "servings",                        :null => false
-    t.string  "recipe_category", :limit => 15
-    t.integer "owner_id",                        :null => false
-  end
-
   create_table "recipes", :force => true do |t|
-    t.integer  "recipe_id"
     t.string   "recipe_name"
     t.string   "description"
     t.string   "directions"
@@ -131,10 +62,6 @@ ActiveRecord::Schema.define(:version => 20130409014322) do
   add_index "recipes", ["recipe_name"], :name => "index_recipes_on_recipe_name"
   add_index "recipes", ["user_id"], :name => "index_recipes_on_user_id"
 
-  create_table "shopping_list", :primary_key => "shopping_list_id", :force => true do |t|
-    t.string "description", :limit => 50
-    t.string "state",       :limit => 10
-  end
 
   create_table "shopping_lists", :force => true do |t|
     t.string   "description"
@@ -159,11 +86,6 @@ ActiveRecord::Schema.define(:version => 20130409014322) do
   end
 
   add_index "stores", ["store_name"], :name => "index_stores_on_store_name"
-
-  create_table "to_buy", :id => false, :force => true do |t|
-    t.integer "shopping_list_id", :null => false
-    t.integer "product_id",       :null => false
-  end
 
   create_table "to_buys", :force => true do |t|
     t.integer  "shopping_list_id"

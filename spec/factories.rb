@@ -19,7 +19,6 @@ FactoryGirl.define do
 		description "Food Recipe with ingredients 1 2 and 3"
 		directions "1.  Do a bunch of stuff\n2.  Do some more stuff\n3.  Finally And Done!"
 		recipe_category "Meat"
-		recipe_id 1
 		recipe_name "Recipe of Food"
 		servings 8
 		total_cook_time "30 Min"

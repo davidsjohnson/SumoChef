@@ -11,7 +11,6 @@ describe Recipe do
 	it { should respond_to(:description) }
 	it { should respond_to(:directions) }
 	it { should respond_to(:recipe_category) }
-	it { should respond_to(:recipe_id) }
 	it { should respond_to(:recipe_name) }
 	it { should respond_to(:servings) }
 	it { should respond_to(:total_cook_time) }

@@ -9,7 +9,11 @@ class ShoppingList < ActiveRecord::Base
   validates :state, presence: true
   validates :user_id, presence: true
 
-  def add_item!(product)
+  def add_product!(product)
   	to_buys.create!(product_id: product.id)
+  end
+
+  def remove_product!(product)
+    to_buys.find_by_product_id(product.id).destroy
   end
 end

@@ -10,7 +10,8 @@ describe ShoppingList do
   
   it { should respond_to (:description) }
   it { should respond_to (:state) }
-  it { should respond_to (:add_item!) }
+  it { should respond_to (:add_product!) }
+  it { should respond_to (:remove_product!) }  
   it { should respond_to (:products) }
 
   it { should be_valid }
@@ -32,15 +33,22 @@ describe ShoppingList do
     it { should_not be_valid } 
   end
 
-  describe "add item" do
+  describe "add and remove products" do
     let(:product) { FactoryGirl.create(:product) }
-    before do
+    before do 
       @shopping_list.save
-      @shopping_list.add_item!(product)
+      @shopping_list.add_product!(product)
     end
 
-    its(:products) { should include(product) }
+    describe "add product" do     
+      its(:products) { should include(product) }
+    end
+
+    describe "remove item" do
+      before { @shopping_list.remove_product!(product) }
+      
+      its(:products) { should_not include(product) } 
+    end 
   end
-  
 
 end

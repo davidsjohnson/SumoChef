@@ -7,6 +7,4 @@ describe ToBuy do
   	@shopping_list = user.shopping_lists.build(description: "This is a List", state: "active")
   end
 
-  
-
 end
