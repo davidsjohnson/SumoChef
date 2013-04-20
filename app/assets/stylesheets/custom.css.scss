@@ -204,3 +204,11 @@ aside {
   margin-top: 45px;
   @include box_sizing;
 }
+
+/*shopping list */
+.active {
+  background: #d6e9c6;  
+}
+.inactive {
+  background: #eed3d7;  
+}
