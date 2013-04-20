@@ -1,5 +1,5 @@
 class Recipe < ActiveRecord::Base
-  attr_accessible :description, :directions, :recipe_category, :recipe_id, :recipe_name, :servings, :total_cook_time, :total_prep_time
+  attr_accessible :product_ids, :contains_products, :description, :directions, :recipe_category, :recipe_id, :recipe_name, :servings, :total_cook_time, :total_prep_time
   belongs_to :user
   has_many :contains_products, foreign_key: "recipe_id", dependent: :destroy
   has_many :products, through: :contains_products, source: :product
@@ -21,4 +21,17 @@ class Recipe < ActiveRecord::Base
   def contains?(product)
     contains_products.find_by_product_id(product.id)
   end
+
+  def owns_recipe?
+    @user = current_user
+    @recipe = Recipe.find(params[:id])
+    @user.id = @recipe.user.id
+  end
+
+  # def product_ids
+  #   ids.each do |id|
+  #     p = Product.find(id)
+  #     contains!(p, 3, 'oz')
+  #   end
+  # end
 end

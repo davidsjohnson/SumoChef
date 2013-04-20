@@ -8,4 +8,8 @@ class ContainsProduct < ActiveRecord::Base
   validates :recipe_id, presence: true
   validates :quantity, presence: true
   validates :unit_of_measure, presence: true
+
+  def full_name
+  	prod = Product.find(self.product_id).full_name
+  end
 end

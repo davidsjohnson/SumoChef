@@ -5,4 +5,8 @@ class Product < ActiveRecord::Base
 
   validates :description, presence: true
   validates :product_name, presence: true, length: { maximum: 50}
+
+  def full_name
+  	"#{product_name} - #{Manufacturer.find(self.manufacturer_id).manufacturer_name}"
+  end
 end

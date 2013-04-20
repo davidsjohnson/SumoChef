@@ -1,14 +1,10 @@
 <h1 class="recipe_name"> <%= @recipe.recipe_name %> </h1>
-<div class="description"> 
-	<h4>Description: </h4>
-	<%= h(@recipe.description).gsub(/\n/, '<br/>').html_safe %> 
-</div>
-<div class="servings"> 
-	<h4> Serves: </h4> 
-	<%= @recipe.servings %>
+<div class="description well"> 
+	<h4 class="pull-right">Serves <%= @recipe.servings %> </h4>
+	<h4> <%= h(@recipe.description).gsub(/\n/, '<br/>').html_safe %> </h4>
 </div>
 
-<div class="ingredients">
+<div class="ingredients well">
 	<h4> Ingredients: </h4> 
 	<ul>
 		<% @recipe.contains_products.each do |contains| %>
@@ -17,16 +13,21 @@
 	</ul>
 </div>
 
-<div class="cook_time"> 
+<div class="cook_time well"> 
 	<h4> Total Cook Time: </h4> 
 	<%= @recipe.total_cook_time %>
 </div>
-<div class="prep_time"> 
+<div class="prep_time well"> 
 	<h4> Total Prep Time: </h4> 
 	<%= @recipe.total_prep_time %> 
 </div>
-<div class="directions"> 
+<div class="directions well"> 
 	<h4> Directions:  </h4>
 	<%= h(@recipe.directions).gsub(/\n/, '<br/>').html_safe %>
 </div>
 
+<div>
+	<% if owns_recipe? %>
+		<%= link_to "Delete", recipe_path, method: "delete", data: { confirm: "You sure?" }, class: "btn btn-primary center"%>
+	<% end %>
+</div>
