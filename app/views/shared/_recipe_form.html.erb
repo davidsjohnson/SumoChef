@@ -1,5 +1,5 @@
 <div class="form">
-		<%= simple_form_for(@recipe) do |f| %>
+	<%= simple_form_for(@recipe) do |f| %>
 		<%= render 'shared/error_messages', object: f.object %>
 
 		<%= f.label :recipe_name %>
@@ -7,12 +7,6 @@
 
 		<%= f.label :recipe_category %>
 		<%= f.text_field :recipe_category %>
-
-		<!--<%= f.label :contains_products %>
-		<%= f.collection_select(:contains_products, Product.all, :id, :product_name, multiple: true) %>
-
-		<%= f.label :contains_products %>
-		<%= f.collection_select(:contains_products, Product.all, :id, :product_name, multiple: true) %>-->
 
 		<%= f.label :ingredients %>
 		<%= f.association :products, label_method: :full_name, value_method: :id, include_blank: false %>

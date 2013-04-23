@@ -21,6 +21,10 @@ class User < ActiveRecord::Base
     !self.shopping_lists.find_by_state("active").nil?
   end
 
+  def active_shopping_lists
+    self.shopping_lists.find_all_by_state("active")
+  end
+
   private
 
     def create_remember_token

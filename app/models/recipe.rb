@@ -22,16 +22,13 @@ class Recipe < ActiveRecord::Base
     contains_products.find_by_product_id(product.id)
   end
 
-  def owns_recipe?
-    @user = current_user
-    @recipe = Recipe.find(params[:id])
-    @user.id = @recipe.user.id
+  class << self
+    def search(searchword)
+      if searchword
+        Recipe.find(:all, :conditions => ['recipe_name ILIKE ?', "%#{searchword}%"])
+      else
+        Recipe.find(:all)
+      end
+    end
   end
-
-  # def product_ids
-  #   ids.each do |id|
-  #     p = Product.find(id)
-  #     contains!(p, 3, 'oz')
-  #   end
-  # end
 end

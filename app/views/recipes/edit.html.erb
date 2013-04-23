@@ -1,0 +1,40 @@
+<% provide(:title, "Edit Recipe") %> 
+<h1>Edit recipe</h1>
+
+<div class="row">
+  <div class="span6 offset3">
+    	<%= form_for(@recipe) do |f| %>
+			<%= render 'shared/error_messages', object: f.object %>
+
+			<%= f.label :recipe_name %>
+			<%= f.text_field :recipe_name %>
+
+			<%= f.label :recipe_category %>
+			<%= f.text_field :recipe_category %>
+
+			<!--<%= f.label :contains_products %>
+			<%= f.collection_select(:contains_products, Product.all, :id, :product_name, multiple: true) %>
+
+			<%= f.label :contains_products %>
+			<%= f.collection_select(:contains_products, Product.all, :id, :product_name, multiple: true) %>-->
+
+			<%= f.label :description %>
+			<%= f.text_area :description %>
+
+			<%= f.label :directions %>
+			<%= f.text_area :directions %>
+
+			<%= f.label :servings %>
+			<%= f.text_field :servings %>
+
+			<%= f.label :total_cook_time %>
+			<%= f.text_field :total_cook_time %>
+
+			<%= f.label :total_prep_time %>
+			<%= f.text_field :total_prep_time %>
+
+			<%= f.submit class: "btn btn-large btn-primary" %>
+
+		<% end %>
+  </div>
+</div>

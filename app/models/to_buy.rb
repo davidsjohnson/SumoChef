@@ -4,6 +4,6 @@ class ToBuy < ActiveRecord::Base
   belongs_to :product
 
   def product_name
-  	Product.find_by_id(self.product_id).product_name
+  	Product.find_by_id(self.product_id).full_name
   end
 end

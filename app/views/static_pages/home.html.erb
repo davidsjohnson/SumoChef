@@ -1,4 +1,7 @@
 <% if signed_in? %>
+	<div> 
+		<%= render 'shared/search_form' %>
+	</div>
 	<div>
       <h3>Recipes (<%= @recipes.count %>) <%= link_to "Add new recipe", recipe_new_path,  class: "pull-right btn btn-primary" %></h3>
       <ol class="recipes">

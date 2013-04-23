@@ -1,8 +1,13 @@
 SumochefApp::Application.routes.draw do
   resources :users
   resources :sessions, only: [:new, :create, :destroy]
-  resources :recipes,  only: [:show, :create, :destroy, :update]
+  resources :recipes  do
+    member do
+      put :add_to_list
+    end
+  end
   resources :shopping_lists
+  resources :static_pages
   
   root :to => 'static_pages#home'
 
