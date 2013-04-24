@@ -8,6 +8,6 @@ class Product < ActiveRecord::Base
   validates :product_name, presence: true, length: { maximum: 50}
 
   def full_name
-   "#{Manufacturer.find(self.manufacturer_id).manufacturer_name} | #{product_name} | #{quantity} | #{unit_of_measure}"
+   "#{product_name} | #{Manufacturer.find(self.manufacturer_id).manufacturer_name} | #{quantity} #{unit_of_measure}"
   end
 end

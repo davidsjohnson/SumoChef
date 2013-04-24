@@ -1,6 +1,6 @@
 class ShoppingListsController < ApplicationController
 	before_filter :signed_in_user
-	before_filter :correct_user, only: [:edit, :update]
+	#before_filter :correct_user, only: [:edit, :update]
 
 	def new
 		@shopping_list = ShoppingList.new
@@ -8,10 +8,11 @@ class ShoppingListsController < ApplicationController
 
 	def show
 		@shopping_list = ShoppingList.find(params[:id])
+		@user = current_user
 	end
 
 	def index
-		@user = User.find(current_user)
+		@user = current_user
 		@shopping_lists = @user.shopping_lists.paginate(page: params[:page], per_page: 3)
 	end
 
@@ -20,6 +21,7 @@ class ShoppingListsController < ApplicationController
 
 	def update
 		@shopping_list = ShoppingList.find(params[:id])
+		logger.debug "ShoppingList: #{params}"
 	   if @shopping_list.add_product!(Product.find(params[:Product][:id]))
 			flash[:success] = "Product added to shopping list!"
 			redirect_to @shopping_list

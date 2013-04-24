@@ -1,24 +1,27 @@
-<div>
-	<div class="well <%= @shopping_list.state %>">
-	<h3><%= @shopping_list.description %></h3>
-  	<p class="state"><strong>Status: </strong><%= @shopping_list.state.titlecase %></p>
-  	<ol class="products">
-  		<% @shopping_list.to_buys.each do |to_buy| %>
-  			<li class="product"> <%= to_buy.product_name %> </li>
-  		<% end %>
- 	</ol>
- 	<div "list add_product">
- 		<%= form_for(@shopping_list) do |f| %>
+<div class="row">
+  <div class="span8 offset2">
+    <h1> Shopping List </h1>
+  	<div class="well <%= @shopping_list.state %>">
+  	<h3><%= @shopping_list.description %></h3>
+    	<p class="state"><strong>Status: </strong><%= @shopping_list.state.titlecase %></p>
+    	<ol class="products">
+    		<% @shopping_list.to_buys.each do |to_buy| %>
+    			<li class="product"> <%= to_buy.product_name %> </li>
+    		<% end %>
+   	</ol>
+   	<div "list add_product">
+   		<%= form_for(@shopping_list) do |f| %>
 
- 			<%= render 'shared/error_messages', object: f.object %>
-	 		<%= f.label :ingredient %>
-	 		<%= collection_select(Product, :id, Product.all, :id, :product_name) %>
-	    <%= f.submit "Add to shopping list", :name => nil, class: 'btn btn-primary' %>
+   			<%= render 'shared/error_messages', object: f.object %>
+  	 		<%= f.label :ingredient %>
+  	 		<%= collection_select(Product, :id, Product.all, :id, :full_name) %>
+  	    <%= f.submit "Add to shopping list", :name => nil, class: 'btn btn-primary' %>
 
-  	<% end %>
-   </div>
-  	<span class="timestamp">
-  		Shopping list created <%= time_ago_in_words(@shopping_list.created_at) %> ago.
-  	</span>
-</div>
+    	<% end %>
+     </div>
+    	<span class="timestamp">
+    		Shopping list created <%= time_ago_in_words(@shopping_list.created_at) %> ago.
+    	</span>
+    </div>
+  </div>
 </div>
