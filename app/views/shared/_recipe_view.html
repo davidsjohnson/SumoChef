@@ -1,42 +1,47 @@
-<h1 class="recipe_name"> <%= @recipe.recipe_name %> </h1>
-	<%= form_for @recipe, url: add_to_list_recipe_path(@recipe), action: 'put' do |f| %>
+<div class="span8">
+	<h1 class="recipe_name"> <%= @recipe.recipe_name %> </h1>
+	<div class="description well"> 
+		<h4 class="pull-right">Serves <%= @recipe.servings %> </h4>
+		<h4> <%= h(@recipe.description).gsub(/\n/, '<br/>').html_safe %> </h4>
+	</div>
 
- 		<%= render 'shared/error_messages', object: f.object %>
-	 	<%= f.label :shopping_list %>
-	 	<%= collection_select(ShoppingList, :id, current_user.active_shopping_lists, :id, :description) %>
-	   <%= f.submit "Add to shopping list", :name => nil, class: 'btn btn-primary' %>
+	<div class="ingredients well">
+		<h4> Ingredients: </h4> 
+		<ul>
+			<% @recipe.contains_products.each do |contains| %>
+				<li> <%= contains.quantity %> <%= contains.unit_of_measure %> <%= contains.product.product_name %> </li>
+			<% end %>
+		</ul>
+	</div>
 
- 	<% end %>
-<div class="description well"> 
-	<h4 class="pull-right">Serves <%= @recipe.servings %> </h4>
-	<h4> <%= h(@recipe.description).gsub(/\n/, '<br/>').html_safe %> </h4>
-</div>
+	<div class="cook_time well"> 
+		<h4> Total Cook Time: </h4> 
+		<%= @recipe.total_cook_time %>
+	</div>
+	<div class="prep_time well"> 
+		<h4> Total Prep Time: </h4> 
+		<%= @recipe.total_prep_time %> 
+	</div>
+	<div class="directions well"> 
+		<h4> Directions:  </h4>
+		<%= h(@recipe.directions).gsub(/\n/, '<br/>').html_safe %>
+	</div>
 
-<div class="ingredients well">
-	<h4> Ingredients: </h4> 
-	<ul>
-		<% @recipe.contains_products.each do |contains| %>
-			<li> <%= contains.quantity %> <%= contains.unit_of_measure %> <%= contains.product.product_name %> </li>
+	<div>
+		<% if signed_in? and owns_recipe? %>
+			<%= link_to "Edit", edit_recipe_path(@recipe), class: "btn btn-primary center" %>
+			<%= link_to "Delete", recipe_path, method: "delete", data: { confirm: "You sure?" }, class: "btn btn-primary center" %>
 		<% end %>
-	</ul>
+	</div>
 </div>
+<aside class="span3 offset1">
+	<% if signed_in? %>
+		<%= form_for @recipe, url: add_to_list_recipe_path(@recipe), action: 'put' do |f| %>
 
-<div class="cook_time well"> 
-	<h4> Total Cook Time: </h4> 
-	<%= @recipe.total_cook_time %>
-</div>
-<div class="prep_time well"> 
-	<h4> Total Prep Time: </h4> 
-	<%= @recipe.total_prep_time %> 
-</div>
-<div class="directions well"> 
-	<h4> Directions:  </h4>
-	<%= h(@recipe.directions).gsub(/\n/, '<br/>').html_safe %>
-</div>
+	 		<%= render 'shared/error_messages', object: f.object %>
+		 	<%= collection_select(ShoppingList, :id, current_user.active_shopping_lists, :id, :description) %>
+		   <%= f.submit "Add to shopping list", :name => nil, class: 'btn btn-primary' %>
 
-<div>
-	<% if owns_recipe? %>
-		<%= link_to "Edit", edit_recipe_path(@recipe), class: "btn btn-primary center" %>
-		<%= link_to "Delete", recipe_path, method: "delete", data: { confirm: "You sure?" }, class: "btn btn-primary center" %>
-	<% end %>
-</div>
+	 	<% end %>
+ 	<% end %>
+</aside>
