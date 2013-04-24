@@ -7,16 +7,17 @@ class RecipesController < ApplicationController
   	end
 
 	def create
-		product_ids = params[:recipe][:product_ids]
-		params[:recipe].delete :product_ids
+	 	@product1 = Product.find(params[:product1][:id])
+	 	@product2 = Product.find(params[:product2][:id])
+	 	@product3 = Product.find(params[:product3][:id])
 		@recipe = current_user.recipes.build(params[:recipe])
 		if @recipe.save
-			product_ids.each do |id|
-				if id != ""
-					product = Product.find(id)
-					@recipe.contains!(product, 3, "oz")
-				end
-			end
+	    	@recipe.products.each do |p|
+	    		@recipe.delete_product(p)
+	    	end
+	    	@recipe.contains!(@product1)
+	    	@recipe.contains!(@product2)
+	    	@recipe.contains!(@product3)
 			flash[:success] = "Your recipe has been created!"
 			redirect_to root_url
 		else
@@ -26,11 +27,23 @@ class RecipesController < ApplicationController
 
 	def edit
 		@recipe = Recipe.find(params[:id])
+		@product1 = @recipe.products[0]
+		@product2 = @recipe.products[1]
+		@product3 = @recipe.products[2]
 	end
 
 	def update
 	 @recipe = Recipe.find(params[:id])
+	 @product1 = Product.find(params[:product1][:id])
+	 @product2 = Product.find(params[:product2][:id])
+	 @product3 = Product.find(params[:product3][:id])
     if @recipe.update_attributes(params[:recipe])
+    	@recipe.products.each do |p|
+    		@recipe.delete_product(p)
+    	end
+    	@recipe.contains!(@product1)
+    	@recipe.contains!(@product2)
+    	@recipe.contains!(@product3)
       flash[:success] = "Recipe updated!"
       redirect_to @recipe
     else

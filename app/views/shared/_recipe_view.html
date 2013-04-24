@@ -9,7 +9,7 @@
 		<h4> Ingredients: </h4> 
 		<ul>
 			<% @recipe.contains_products.each do |contains| %>
-				<li> <%= contains.quantity %> <%= contains.unit_of_measure %> <%= contains.product.product_name %> </li>
+				<li> <%= contains.product.quantity %> <%= contains.product.unit_of_measure %> <%= contains.product.product_name %> </li>
 			<% end %>
 		</ul>
 	</div>

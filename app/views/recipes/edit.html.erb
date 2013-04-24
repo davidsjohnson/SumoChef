@@ -12,11 +12,9 @@
 			<%= f.label :recipe_category %>
 			<%= f.text_field :recipe_category %>
 
-			<!--<%= f.label :contains_products %>
-			<%= f.collection_select(:contains_products, Product.all, :id, :product_name, multiple: true) %>
-
-			<%= f.label :contains_products %>
-			<%= f.collection_select(:contains_products, Product.all, :id, :product_name, multiple: true) %>-->
+			<%= f.fields_for :products do |builder| %>
+				<%= render 'products_fields', :f => builder %>
+			<% end %>
 
 			<%= f.label :description %>
 			<%= f.text_area :description %>

@@ -1,0 +1,10 @@
+<p>
+	<%= f.label :product_name, "Product 1" %>
+	<%= collection_select(:product1, :id, Product.all, :id, :full_name) %>
+
+	<%= f.label :product_name, "Product 2" %>
+	<%= collection_select(:product2, :id, Product.all, :id, :full_name) %>
+
+	<%= f.label :product_name, "Product 3" %>
+	<%= collection_select(:product3, :id, Product.all, :id, :full_name) %>
+</p>

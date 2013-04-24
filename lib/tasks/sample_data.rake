@@ -21,6 +21,18 @@ namespace :db do
                    password_confirmation: password)
     end
 
+    40.times do |n|
+      product_name = "Product #{n+1}"
+      manufacturer_id = 2
+      description = "Test Product"
+      Product.create!(product_name: product_name, manufacturer_id: manufacturer_id, description: description, quantity: 3, unit_of_measure: "oz")
+    end
+
+    5.times do |n|
+      man_name ="Manufacturer #{n}"
+      Manufacturer.create(manufacturer_name: man_name)
+    end
+
     users = User.all(limit: 6)
     40.times do |n|
       name = "Recipe Name #{n+1}"
@@ -33,17 +45,10 @@ namespace :db do
       users.each { |user| user.recipes.create!(recipe_name: name, description: description, recipe_category: category, directions: directions, servings: servings, total_prep_time: total_prep_time, total_cook_time: total_cook_time) }
     end
 
-    40.times do |n|
-      product_name = "Product #{n+1}"
-      manufacturer_id = 2
-      description = "Test Product"
-      Product.create!(product_name: product_name, manufacturer_id: manufacturer_id, description: description)
-    end
-
     recipes = Recipe.all(limit: 10)
     recipes.each do |recipe|
       5.times do |n|
-        recipe.contains!(Product.find(n+1), 3, "Cups")
+        recipe.contains!(Product.find(n+1))
       end
     end
   end
